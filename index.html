@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Derby Daze Orlando — 2nd Annual Kentucky Derby Day Party. Saturday, May 3rd, 2026. Euphoria Kissimmee." />
+  <title>Derby Daze Orlando</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────── */
+    :root {
+      --ink:    #0c0c0a;
+      --paper:  #f4f0e8;
+      --gold:   #c9a84c;
+      --green:  #1b4332;
+      --muted:  #8a8070;
+      --border: rgba(201,168,76,0.25);
+
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'DM Sans', system-ui, sans-serif;
+
+      --ease: cubic-bezier(0.76, 0, 0.24, 1);
+    }
+
+    /* ── RESET ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--ink);
+      color: var(--paper);
+      overflow-x: hidden;
+      cursor: none;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── CUSTOM CURSOR ──────────────────────────────── */
+    .cursor-dot {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(201,168,76,0.5);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.18s var(--ease), width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.3s;
+    }
+    body:has(a:hover) .cursor-ring,
+    body:has(button:hover) .cursor-ring {
+      width: 56px; height: 56px;
+      border-color: var(--gold);
+    }
+
+    /* ── NAV ────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      z-index: 100;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: padding 0.4s var(--ease), background 0.4s;
+      mix-blend-mode: normal;
+    }
+    nav.solid {
+      padding: 18px 48px;
+      background: rgba(12,12,10,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .nav-links a {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(244,240,232,0.6);
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--paper); }
+    .nav-ticket {
+      font-size: 0.7rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.14em !important;
+      color: var(--ink) !important;
+      background: var(--gold);
+      padding: 10px 22px;
+      border-radius: 2px;
+      transition: opacity 0.25s !important;
+    }
+    .nav-ticket:hover { opacity: 0.85; }
+
+    /* hamburger */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-burger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--paper);
+      transition: 0.3s var(--ease);
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--ink);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 7vw, 4rem);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: var(--paper);
+      transition: color 0.2s;
+    }
+    .nav-mobile-menu a:hover { color: var(--gold); }
+
+    /* ── HERO ───────────────────────────────────────── */
+    #hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 0 48px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 32px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(5rem, 14vw, 17rem);
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+      overflow: hidden;
+    }
+    .hero-title .line {
+      display: block;
+      overflow: hidden;
+    }
+    .hero-title .line span {
+      display: block;
+      transform: translateY(105%);
+      transition: transform 1.2s var(--ease);
+    }
+    .hero-title .line span.revealed {
+      transform: translateY(0);
+    }
+    .hero-title .outline {
+      -webkit-text-stroke: 1px var(--paper);
+      color: transparent;
+    }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+      gap: 24px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .hero-meta-row {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(244,240,232,0.5);
+    }
+    .hero-meta-row strong {
+      color: var(--paper);
+      font-weight: 500;
+    }
+
+    .hero-countdown {
+      display: flex;
+      gap: 24px;
+    }
+    .countdown-unit {
+      text-align: center;
+    }
+    .countdown-num {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1;
+      color: var(--gold);
+    }
+    .countdown-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .hero-scroll {
+      writing-mode: vertical-rl;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* grain overlay */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+
+    /* ── MARQUEE ────────────────────────────────────── */
+    .marquee-wrap {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      padding: 18px 0;
+      background: var(--green);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-track span {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.06em;
+      color: var(--paper);
+      padding: 0 48px;
+      white-space: nowrap;
+    }
+    .marquee-track span.dot {
+      color: var(--gold);
+      padding: 0;
+      font-style: normal;
+      font-size: 0.5rem;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SECTIONS SHARED ─────────────────────────────── */
+    section { position: relative; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    .section-tag {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    /* ── ABOUT ──────────────────────────────────────── */
+    #about {
+      padding: 120px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      background: var(--ink);
+    }
+
+    .about-left .big-num {
+      font-family: var(--serif);
+      font-size: clamp(8rem, 18vw, 22rem);
+      font-weight: 300;
+      line-height: 1;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.3);
+      color: transparent;
+      pointer-events: none;
+      margin-bottom: -40px;
+      letter-spacing: -0.04em;
+    }
+    .about-left-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
+    .about-right .headline {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 32px;
+    }
+    .about-right .headline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .about-right p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: rgba(244,240,232,0.65);
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+    .about-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: rgba(244,240,232,0.7);
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .pill:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── DETAILS STRIP ──────────────────────────────── */
+    #details {
+      background: var(--paper);
+      color: var(--ink);
+      padding: 80px 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background-clip: content-box;
+      position: relative;
+    }
+    #details::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(201,168,76,0.1);
+      pointer-events: none;
+    }
+    .detail-cell {
+      background: var(--paper);
+      padding: 48px 40px;
+      border-left: 1px solid rgba(12,12,10,0.1);
+    }
+    .detail-cell:first-child { border-left: none; }
+    .detail-label {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .detail-value {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+    .detail-value em {
+      font-style: italic;
+      color: var(--green);
+    }
+    .detail-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* ── SCHEDULE ───────────────────────────────────── */
+    #schedule {
+      padding: 120px 48px;
+      background: var(--ink);
+    }
+    .schedule-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 80px;
+      gap: 32px;
+    }
+    .schedule-title {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 300;
+      line-height: 1;
+    }
+    .schedule-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      max-width: 260px;
+      line-height: 1.6;
+      flex-shrink: 0;
+    }
+
+    .schedule-list { border-top: 1px solid var(--border); }
+    .schedule-item {
+      display: grid;
+      grid-template-columns: 180px 1fr auto;
+      align-items: center;
+      gap: 48px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      transition: padding-left 0.3s var(--ease);
+    }
+    .schedule-item:hover { padding-left: 16px; }
+    .schedule-time {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: -0.01em;
+    }
+    .schedule-event {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--paper);
+    }
+    .schedule-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      max-width: 220px;
+      text-align: right;
+      line-height: 1.5;
+    }
+    .schedule-item.highlight .schedule-event {
+      color: var(--gold);
+    }
+    .schedule-item.highlight .schedule-time {
+      color: var(--paper);
+    }
+
+    /* ── TICKETS ────────────────────────────────────── */
+    #tickets {
+      padding: 120px 48px;
+      background: var(--green);
+    }
+    .tickets-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .tickets-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 7rem);
+      font-weight: 300;
+      line-height: 0.9;
+      margin-top: 16px;
+    }
+    .tickets-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .ticket-card {
+      background: rgba(244,240,232,0.06);
+      border: 1px solid rgba(244,240,232,0.1);
+      padding: 56px 48px;
+      position: relative;
+      transition: background 0.35s var(--ease), border-color 0.35s;
+      overflow: hidden;
+    }
+    .ticket-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: transparent;
+      transition: background 0.35s;
+    }
+    .ticket-card.featured {
+      background: rgba(201,168,76,0.1);
+      border-color: rgba(201,168,76,0.3);
+    }
+    .ticket-card.featured::before { background: var(--gold); }
+    .ticket-card:hover {
+      background: rgba(244,240,232,0.1);
+      border-color: rgba(244,240,232,0.2);
+    }
+    .ticket-card.featured:hover { background: rgba(201,168,76,0.16); }
+
+    .ticket-tier {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .ticket-name {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 300;
+      margin-bottom: 32px;
+      color: var(--paper);
+    }
+    .ticket-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .ticket-perk {
+      font-size: 0.85rem;
+      color: rgba(244,240,232,0.7);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .ticket-perk::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .ticket-btn {
+      display: inline-block;
+      padding: 14px 32px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 1px solid rgba(244,240,232,0.3);
+      color: var(--paper);
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+      cursor: pointer;
+    }
+    .ticket-btn:hover {
+      background: var(--paper);
+      color: var(--ink);
+      border-color: var(--paper);
+    }
+    .ticket-card.featured .ticket-btn {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--ink);
+    }
+    .ticket-card.featured .ticket-btn:hover {
+      background: #d9bb6a;
+    }
+    .ticket-parking {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.75rem;
+      color: rgba(244,240,232,0.4);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── DRESS CODE ─────────────────────────────────── */
+    #dress {
+      padding: 120px 48px;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .dress-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-bottom: 80px;
+    }
+    .dress-headline {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6vw, 6rem);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+    }
+    .dress-headline em { font-style: italic; color: var(--green); }
+    .dress-intro {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: rgba(12,12,10,0.55);
+      padding-top: 8px;
+    }
+
+    .dress-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-bottom: 40px;
+    }
+    .dress-col {
+      background: rgba(12,12,10,0.04);
+      padding: 48px 40px;
+      border: 1px solid rgba(12,12,10,0.08);
+    }
+    .dress-col-title {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(12,12,10,0.1);
+    }
+    .dress-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .dress-item {
+      font-size: 0.88rem;
+      color: rgba(12,12,10,0.65);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dress-item::before {
+      content: '';
+      display: block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .dress-warning {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 32px 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .dress-warning-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--gold);
+    }
+    .dress-warning-text {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(244,240,232,0.75);
+    }
+    .dress-warning-text strong {
+      color: var(--paper);
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    /* ── FAQ ────────────────────────────────────────── */
+    #faq {
+      padding: 120px 48px;
+      background: var(--ink);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .faq-header { margin-bottom: 64px; }
+    .faq-title {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 28px 0;
+      cursor: pointer;
+      color: var(--paper);
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 300;
+      transition: color 0.25s;
+    }
+    .faq-q:hover { color: var(--gold); }
+    .faq-q-icon {
+      width: 28px; height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+      transition: transform 0.4s var(--ease), border-color 0.25s;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .faq-item.open .faq-q-icon { transform: rotate(45deg); border-color: var(--gold); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s var(--ease);
+    }
+    .faq-a-inner {
+      padding-bottom: 28px;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: rgba(244,240,232,0.55);
+    }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid var(--border);
+      padding: 64px 48px 40px;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 48px;
+      align-items: start;
+      margin-bottom: 64px;
+    }
+    .footer-brand .logo {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .footer-brand p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .footer-center {
+      text-align: center;
+    }
+    .footer-big {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--paper);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+    .footer-ticket-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      transition: opacity 0.25s;
+    }
+    .footer-ticket-btn:hover { opacity: 0.85; }
+
+    .footer-contact {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .footer-contact-item {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .footer-contact-item strong {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(244,240,232,0.3);
+      margin-bottom: 4px;
+    }
+    .footer-contact-item a:hover { color: var(--paper); }
+
+    .footer-social {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-copy {
+      font-size: 0.68rem;
+      color: rgba(244,240,232,0.25);
+      letter-spacing: 0.08em;
+    }
+    .footer-made {
+      font-size: 0.68rem;
+      color: rgba(244,240,232,0.2);
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 24px 24px; }
+      nav.solid { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+
+      #hero { padding: 0 24px 40px; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 32px; }
+      .hero-countdown { gap: 20px; }
+      .hero-scroll { display: none; }
+
+      #about { grid-template-columns: 1fr; gap: 0; padding: 80px 24px; }
+      .about-left { display: none; }
+
+      #details { grid-template-columns: 1fr; padding: 60px 24px; }
+      .detail-cell { border-left: none; border-top: 1px solid rgba(12,12,10,0.1); padding: 32px 24px; }
+      .detail-cell:first-child { border-top: none; }
+
+      #schedule { padding: 80px 24px; }
+      .schedule-header { flex-direction: column; align-items: flex-start; }
+      .schedule-item { grid-template-columns: 120px 1fr; gap: 20px; }
+      .schedule-desc { display: none; }
+
+      #tickets { padding: 80px 24px; }
+      .tickets-grid { grid-template-columns: 1fr; gap: 16px; }
+      .ticket-card { padding: 40px 32px; }
+
+      #dress { padding: 80px 24px; }
+      .dress-top { grid-template-columns: 1fr; gap: 32px; }
+      .dress-grid { grid-template-columns: 1fr; }
+      .dress-col { padding: 36px 28px; }
+
+      #faq { padding: 80px 24px; }
+
+      footer { padding: 48px 24px 32px; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-contact { text-align: center; }
+      .footer-social { justify-content: center; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ── NAV ─────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="nav-logo">Derby Daze Orlando</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#dress">Dress Code</a>
+      <a href="#faq">FAQ</a>
+      <a href="#tickets" class="nav-ticket">Get Tickets</a>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#schedule" class="mobile-link">Schedule</a>
+    <a href="#tickets" class="mobile-link">Tickets</a>
+    <a href="#dress" class="mobile-link">Dress Code</a>
+    <a href="#faq" class="mobile-link">FAQ</a>
+  </div>
+
+  <!-- ── HERO ────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-main">
+      <div class="hero-eyebrow">2nd Annual &nbsp;·&nbsp; May 3, 2026 &nbsp;·&nbsp; Orlando, FL</div>
+      <h1 class="hero-title">
+        <span class="line"><span id="line1">Derby</span></span>
+        <span class="line"><span id="line2" class="outline">Daze</span></span>
+      </h1>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="hero-meta">
+        <div class="hero-meta-row"><strong>Saturday, May 3rd 2026</strong></div>
+        <div class="hero-meta-row">4:00 PM – 9:00 PM &nbsp;·&nbsp; <strong>Euphoria Kissimmee</strong></div>
+        <div class="hero-meta-row">Race Broadcast at <strong>~6:45 PM</strong></div>
+      </div>
+
+      <div class="hero-countdown" id="countdown">
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-days">--</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-hours">--</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-mins">--</div>
+          <div class="countdown-label">Mins</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-num" id="cd-secs">--</div>
+          <div class="countdown-label">Secs</div>
+        </div>
+      </div>
+
+      <div class="hero-scroll" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+        Scroll
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MARQUEE ──────────────────────────────── -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marqueeTrack">
+      <span>Live Race Viewing</span>
+      <span class="dot">◆</span>
+      <span>Full Food Menu</span>
+      <span class="dot">◆</span>
+      <span>Hookah Available</span>
+      <span class="dot">◆</span>
+      <span>Free Parking</span>
+      <span class="dot">◆</span>
+      <span>VIP Experience</span>
+      <span class="dot">◆</span>
+      <span>Euphoria Kissimmee</span>
+      <span class="dot">◆</span>
+      <span>May 3rd 2026</span>
+      <span class="dot">◆</span>
+      <span>Kentucky Derby Day</span>
+      <span class="dot">◆</span>
+      <!-- duplicate for seamless loop -->
+      <span>Live Race Viewing</span>
+      <span class="dot">◆</span>
+      <span>Full Food Menu</span>
+      <span class="dot">◆</span>
+      <span>Hookah Available</span>
+      <span class="dot">◆</span>
+      <span>Free Parking</span>
+      <span class="dot">◆</span>
+      <span>VIP Experience</span>
+      <span class="dot">◆</span>
+      <span>Euphoria Kissimmee</span>
+      <span class="dot">◆</span>
+      <span>May 3rd 2026</span>
+      <span class="dot">◆</span>
+      <span>Kentucky Derby Day</span>
+      <span class="dot">◆</span>
+    </div>
+  </div>
+
+  <!-- ── ABOUT ────────────────────────────────── -->
+  <section id="about">
+    <div class="about-left reveal">
+      <div class="big-num">02</div>
+      <div class="about-left-label">Second Annual Event</div>
+    </div>
+    <div class="about-right">
+      <div class="section-tag reveal">About the Event</div>
+      <h2 class="headline reveal reveal-delay-1">
+        The greatest <em>2 minutes</em> in sports meets Orlando's finest.
+      </h2>
+      <p class="reveal reveal-delay-2">
+        Derby Daze Orlando is Central Florida's premier Kentucky Derby-themed day party experience.
+        Watch the race live, dress to impress, and celebrate with Orlando's social community in
+        an atmosphere that blends Southern elegance with modern nightlife energy.
+      </p>
+      <div class="about-pills reveal reveal-delay-3">
+        <span class="pill">Live Race Broadcast</span>
+        <span class="pill">Full Food Menu</span>
+        <span class="pill">Hookah Service</span>
+        <span class="pill">VIP Packages</span>
+        <span class="pill">Free Parking</span>
+        <span class="pill">Dress to Impress</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DETAILS ──────────────────────────────── -->
+  <div id="details">
+    <div class="detail-cell reveal">
+      <div class="detail-label">Date & Time</div>
+      <div class="detail-value">Saturday<br><em>May 3rd</em></div>
+      <div class="detail-sub">4:00 PM – 9:00 PM Eastern</div>
+    </div>
+    <div class="detail-cell reveal reveal-delay-1">
+      <div class="detail-label">Venue</div>
+      <div class="detail-value"><em>Euphoria</em><br>Kissimmee</div>
+      <div class="detail-sub">Free parking available on-site</div>
+    </div>
+    <div class="detail-cell reveal reveal-delay-2">
+      <div class="detail-label">Race Broadcast</div>
+      <div class="detail-value">~6:45 <em>PM</em></div>
+      <div class="detail-sub">Kentucky Derby live on screen — arrive early</div>
+    </div>
+  </div>
+
+  <!-- ── SCHEDULE ─────────────────────────────── -->
+  <section id="schedule">
+    <div class="schedule-header">
+      <h2 class="schedule-title reveal">
+        The<br><em style="font-style:italic;color:var(--gold)">Rundown</em>
+      </h2>
+      <p class="schedule-note reveal reveal-delay-1">
+        Early arrival is strongly encouraged. The race broadcast is the peak moment of the evening.
+      </p>
+    </div>
+
+    <div class="schedule-list">
+      <div class="schedule-item reveal">
+        <div class="schedule-time">4:00 PM</div>
+        <div class="schedule-event">Doors Open</div>
+        <div class="schedule-desc">Check in, find your spot, get settled</div>
+      </div>
+      <div class="schedule-item reveal reveal-delay-1">
+        <div class="schedule-time">4–6:45</div>
+        <div class="schedule-event">Music, Food & Socializing</div>
+        <div class="schedule-desc">Full menu, hookah service, open bar area</div>
+      </div>
+      <div class="schedule-item highlight reveal reveal-delay-2">
+        <div class="schedule-time">6:45 PM</div>
+        <div class="schedule-event">🏇 Kentucky Derby Broadcast</div>
+        <div class="schedule-desc">The main event — live on screen</div>
+      </div>
+      <div class="schedule-item reveal reveal-delay-3">
+        <div class="schedule-time">Post-Race</div>
+        <div class="schedule-event">Celebration Continues</div>
+        <div class="schedule-desc">Party on through 9:00 PM</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TICKETS ──────────────────────────────── -->
+  <section id="tickets">
+    <div class="tickets-header">
+      <div class="section-tag reveal">Secure Your Spot</div>
+      <h2 class="tickets-title reveal reveal-delay-1">Get<br>Tickets</h2>
+    </div>
+
+    <div class="tickets-grid">
+      <div class="ticket-card reveal">
+        <div class="ticket-tier">General Admission</div>
+        <div class="ticket-name">Standard Entry</div>
+        <div class="ticket-perks">
+          <div class="ticket-perk">Event entry & general access</div>
+          <div class="ticket-perk">Open seating (first come)</div>
+          <div class="ticket-perk">Full food menu access</div>
+          <div class="ticket-perk">Hookah service available</div>
+          <div class="ticket-perk">Live Derby race viewing</div>
+          <div class="ticket-perk">Free parking included</div>
+        </div>
+        <a href="#" class="ticket-btn">Get Tickets</a>
+      </div>
+
+      <div class="ticket-card featured reveal reveal-delay-1">
+        <div class="ticket-tier">VIP</div>
+        <div class="ticket-name">Premium Experience</div>
+        <div class="ticket-perks">
+          <div class="ticket-perk">Everything in General Admission</div>
+          <div class="ticket-perk">Guaranteed reserved seating</div>
+          <div class="ticket-perk">Enhanced premium experience</div>
+          <div class="ticket-perk">Priority entry at doors</div>
+          <div class="ticket-perk">VIP parking upgrade</div>
+        </div>
+        <a href="#" class="ticket-btn">Get VIP Tickets</a>
+      </div>
+    </div>
+
+    <p class="ticket-parking reveal">Complimentary parking available for all attendees · VIP parking upgrades available</p>
+  </section>
+
+  <!-- ── DRESS CODE ───────────────────────────── -->
+  <section id="dress">
+    <div class="dress-top">
+      <h2 class="dress-headline reveal">
+        Dress<br>the <em>Part.</em>
+      </h2>
+      <p class="dress-intro reveal reveal-delay-1">
+        Derby Daze is a fashion moment as much as a party. We expect guests to arrive
+        dressed in the spirit of the Kentucky Derby — elegant, expressive, and celebration-ready.
+        The dress code is strictly enforced at the door.
+      </p>
+    </div>
+
+    <div class="dress-grid">
+      <div class="dress-col reveal">
+        <div class="dress-col-title">Women</div>
+        <div class="dress-items">
+          <div class="dress-item">Bold & bright colors, floral patterns</div>
+          <div class="dress-item">Dresses, jumpsuits, pantsuits</div>
+          <div class="dress-item">Rompers, dress shorts</div>
+          <div class="dress-item">Fascinators, elegant hats, veils</div>
+          <div class="dress-item">Elevated footwear & accessories</div>
+        </div>
+      </div>
+      <div class="dress-col reveal reveal-delay-1">
+        <div class="dress-col-title">Men</div>
+        <div class="dress-items">
+          <div class="dress-item">Spring color palette — think pastels & earth tones</div>
+          <div class="dress-item">Suits, blazers, sport coats</div>
+          <div class="dress-item">Vests, sweaters, button-downs</div>
+          <div class="dress-item">Chinos, slacks, dress shorts</div>
+          <div class="dress-item">Clean dress shoes or loafers</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dress-warning reveal">
+      <div class="dress-warning-icon">!</div>
+      <div class="dress-warning-text">
+        <strong>Strictly Enforced</strong>
+        Absolutely no denim, sports attire, t-shirts, or tank tops will be permitted.
+        Attendees who do not comply with the dress code may be denied entry —
+        no refunds will be issued for dress code violations.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ─────────────────────────────────── -->
+  <section id="faq" style="max-width:100%;padding:120px 48px;">
+    <div style="max-width:860px;margin:0 auto;">
+      <div class="faq-header reveal">
+        <div class="section-tag">Got Questions?</div>
+        <h2 class="faq-title">FAQ</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-q">
+            Is there parking at the venue?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes — complimentary parking is available for all attendees at Euphoria Kissimmee. VIP parking can be added as an upgrade when purchasing your ticket.</div></div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-1">
+          <button class="faq-q">
+            What food is available?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">A full food menu is available throughout the event, including vegetarian appetizers and entrées. Hookah service is also available at the venue.</div></div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-2">
+          <button class="faq-q">
+            What time is the Kentucky Derby race?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">The Kentucky Derby is scheduled to broadcast at approximately 6:45 PM. This is the peak moment of the event — we strongly recommend arriving at 4:00 PM when doors open to get settled before the race.</div></div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-3">
+          <button class="faq-q">
+            What happens if I don't meet the dress code?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Attendees who do not comply with the dress code may be denied entry at the door. No refunds will be issued for dress code violations, so please plan your outfit accordingly.</div></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q">
+            Is hookah available?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes, hookah service is available at Derby Daze Orlando. Additional details on hookah packages may be available at the event.</div></div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-1">
+          <button class="faq-q">
+            Can I bring children?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Please contact us directly at (407) 230-6803 for details regarding minors at the event.</div></div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-2">
+          <button class="faq-q">
+            Still have questions?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Call us at (407) 230-6803. We're happy to help with any questions about tickets, the venue, or the event.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ───────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">Derby Daze Orlando</div>
+        <p>2nd Annual Kentucky Derby Day Party<br>Saturday, May 3rd 2026 · 4–9 PM<br>Euphoria Kissimmee, Orlando FL</p>
+      </div>
+
+      <div class="footer-center">
+        <div class="footer-big">See you<br>there.</div>
+        <a href="#tickets" class="footer-ticket-btn">Get Your Tickets</a>
+      </div>
+
+      <div class="footer-contact">
+        <div class="footer-contact-item">
+          <strong>Phone</strong>
+          <a href="tel:4072306803">(407) 230-6803</a>
+        </div>
+        <div class="footer-contact-item">
+          <strong>Website</strong>
+          DerbyDazeOrlando.com
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="Facebook">fb</a>
+          <a href="#" aria-label="Twitter">tw</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Derby Daze Orlando. All rights reserved.</div>
+      <div class="footer-made">DerbyDazeOrlando.com</div>
+    </div>
+  </footer>
+
+  <script>
+    // ── CUSTOM CURSOR ──────────────────────────────
+    const dot  = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left  = mx + 'px';
+      dot.style.top   = my + 'px';
+    });
+
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // ── NAV ───────────────────────────────────────
+    const navbar = document.getElementById('navbar');
+    const burger = document.getElementById('navBurger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('solid', window.scrollY > 60);
+    });
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        burger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // ── HERO TITLE REVEAL ─────────────────────────
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('line1').classList.add('revealed'), 200);
+      setTimeout(() => document.getElementById('line2').classList.add('revealed'), 450);
+    });
+
+    // ── COUNTDOWN ─────────────────────────────────
+    function updateCountdown() {
+      const target = new Date('2026-05-03T16:00:00-04:00').getTime();
+      const now = Date.now();
+      const diff = target - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = '<div style="font-family:var(--serif);font-size:1.4rem;color:var(--gold)">It\'s Derby Day!</div>';
+        return;
+      }
+
+      const days  = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins  = Math.floor((diff % 3600000)  / 60000);
+      const secs  = Math.floor((diff % 60000)    / 1000);
+
+      document.getElementById('cd-days').textContent  = String(days).padStart(2,'0');
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+      document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+      document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ── SCROLL REVEAL ─────────────────────────────
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── FAQ ACCORDION ─────────────────────────────
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const answer = item.querySelector('.faq-a');
+        const isOpen = item.classList.contains('open');
+
+        // close all
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-a').style.maxHeight = null;
+        });
+
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
