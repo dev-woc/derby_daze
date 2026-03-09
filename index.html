@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Derby Daze Orlando — 2nd Annual Kentucky Derby Day Party. Saturday, May 3rd, 2026. Euphoria Kissimmee." />
+  <meta name="description" content="Derby Daze Orlando — 2nd Annual Kentucky Derby Day Party. Saturday, May 3rd, 2026. Euphoria Orlando." />
   <title>Derby Daze Orlando</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,12 +12,15 @@
   <style>
     /* ── TOKENS ─────────────────────────────────────── */
     :root {
-      --ink:    #0c0c0a;
-      --paper:  #f4f0e8;
-      --gold:   #c9a84c;
-      --green:  #1b4332;
-      --muted:  #8a8070;
-      --border: rgba(201,168,76,0.25);
+      --ink:      #0D1B2A;
+      --paper:    #EEF7FF;
+      --gold:     #F2C030;
+      --sky:      #4AADE8;
+      --sky-deep: #1C5E8F;
+      --floral:   #D63870;
+      --green:    #2D6E4F;
+      --muted:    #7A9BB5;
+      --border:   rgba(74,173,232,0.22);
 
       --serif: 'Cormorant Garamond', Georgia, serif;
       --sans:  'DM Sans', system-ui, sans-serif;
@@ -82,7 +85,7 @@
     }
     nav.solid {
       padding: 18px 48px;
-      background: rgba(12,12,10,0.92);
+      background: rgba(13,27,42,0.94);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
@@ -293,6 +296,17 @@
       50% { opacity: 1; }
     }
 
+    /* hero sky gradient — matches flyer */
+    #hero {
+      background: linear-gradient(175deg,
+        #A8DEFF 0%,
+        #5BB5E8 28%,
+        #3A8CC2 58%,
+        #1A4F80 80%,
+        #0D1B2A 100%
+      );
+    }
+
     /* grain overlay */
     #hero::after {
       content: '';
@@ -306,11 +320,11 @@
 
     /* ── MARQUEE ────────────────────────────────────── */
     .marquee-wrap {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      border-top: 1px solid rgba(214,56,112,0.4);
+      border-bottom: 1px solid rgba(214,56,112,0.4);
       overflow: hidden;
       padding: 18px 0;
-      background: var(--green);
+      background: var(--floral);
     }
     .marquee-track {
       display: flex;
@@ -376,7 +390,7 @@
       font-size: clamp(8rem, 18vw, 22rem);
       font-weight: 300;
       line-height: 1;
-      -webkit-text-stroke: 1px rgba(201,168,76,0.3);
+      -webkit-text-stroke: 1px rgba(74,173,232,0.3);
       color: transparent;
       pointer-events: none;
       margin-bottom: -40px;
@@ -442,13 +456,13 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(201,168,76,0.1);
+      background: rgba(74,173,232,0.06);
       pointer-events: none;
     }
     .detail-cell {
       background: var(--paper);
       padding: 48px 40px;
-      border-left: 1px solid rgba(12,12,10,0.1);
+      border-left: 1px solid rgba(13,27,42,0.1);
     }
     .detail-cell:first-child { border-left: none; }
     .detail-label {
@@ -468,7 +482,7 @@
     }
     .detail-value em {
       font-style: italic;
-      color: var(--green);
+      color: var(--sky-deep);
     }
     .detail-sub {
       font-size: 0.75rem;
@@ -542,7 +556,7 @@
     /* ── TICKETS ────────────────────────────────────── */
     #tickets {
       padding: 120px 48px;
-      background: var(--green);
+      background: linear-gradient(150deg, var(--sky-deep) 0%, var(--ink) 100%);
     }
     .tickets-header {
       text-align: center;
@@ -579,15 +593,15 @@
       transition: background 0.35s;
     }
     .ticket-card.featured {
-      background: rgba(201,168,76,0.1);
-      border-color: rgba(201,168,76,0.3);
+      background: rgba(242,192,48,0.12);
+      border-color: rgba(242,192,48,0.35);
     }
     .ticket-card.featured::before { background: var(--gold); }
     .ticket-card:hover {
       background: rgba(244,240,232,0.1);
       border-color: rgba(244,240,232,0.2);
     }
-    .ticket-card.featured:hover { background: rgba(201,168,76,0.16); }
+    .ticket-card.featured:hover { background: rgba(242,192,48,0.2); }
 
     .ticket-tier {
       font-size: 0.65rem;
@@ -675,11 +689,11 @@
       line-height: 0.92;
       letter-spacing: -0.02em;
     }
-    .dress-headline em { font-style: italic; color: var(--green); }
+    .dress-headline em { font-style: italic; color: var(--sky-deep); }
     .dress-intro {
       font-size: 1rem;
       line-height: 1.8;
-      color: rgba(12,12,10,0.55);
+      color: rgba(13,27,42,0.55);
       padding-top: 8px;
     }
 
@@ -690,9 +704,9 @@
       margin-bottom: 40px;
     }
     .dress-col {
-      background: rgba(12,12,10,0.04);
+      background: rgba(74,173,232,0.06);
       padding: 48px 40px;
-      border: 1px solid rgba(12,12,10,0.08);
+      border: 1px solid rgba(74,173,232,0.15);
     }
     .dress-col-title {
       font-family: var(--serif);
@@ -701,7 +715,7 @@
       color: var(--ink);
       margin-bottom: 28px;
       padding-bottom: 20px;
-      border-bottom: 1px solid rgba(12,12,10,0.1);
+      border-bottom: 1px solid rgba(13,27,42,0.1);
     }
     .dress-items {
       display: flex;
@@ -710,7 +724,7 @@
     }
     .dress-item {
       font-size: 0.88rem;
-      color: rgba(12,12,10,0.65);
+      color: rgba(13,27,42,0.65);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -725,7 +739,7 @@
     }
 
     .dress-warning {
-      background: var(--ink);
+      background: var(--floral);
       color: var(--paper);
       padding: 32px 40px;
       display: flex;
@@ -736,7 +750,7 @@
       font-size: 1.2rem;
       flex-shrink: 0;
       margin-top: 2px;
-      color: var(--gold);
+      color: #fff;
     }
     .dress-warning-text {
       font-size: 0.85rem;
@@ -996,7 +1010,7 @@
   <!-- ── HERO ────────────────────────────────── -->
   <section id="hero">
     <div class="hero-main">
-      <div class="hero-eyebrow">2nd Annual &nbsp;·&nbsp; May 3, 2026 &nbsp;·&nbsp; Orlando, FL</div>
+      <div class="hero-eyebrow">Bluecheese Events &amp; Erica Lashae Events &nbsp;·&nbsp; May 3, 2026</div>
       <h1 class="hero-title">
         <span class="line"><span id="line1">Derby</span></span>
         <span class="line"><span id="line2" class="outline">Daze</span></span>
@@ -1006,8 +1020,8 @@
     <div class="hero-bottom">
       <div class="hero-meta">
         <div class="hero-meta-row"><strong>Saturday, May 3rd 2026</strong></div>
-        <div class="hero-meta-row">4:00 PM – 9:00 PM &nbsp;·&nbsp; <strong>Euphoria Kissimmee</strong></div>
-        <div class="hero-meta-row">Race Broadcast at <strong>~6:45 PM</strong></div>
+        <div class="hero-meta-row">4:00 PM – 9:00 PM &nbsp;·&nbsp; <strong>Euphoria Orlando</strong></div>
+        <div class="hero-meta-row">2783 N Orange Blossom Trail, Kissimmee FL &nbsp;·&nbsp; Race at <strong>~6:45 PM</strong></div>
       </div>
 
       <div class="hero-countdown" id="countdown">
@@ -1048,7 +1062,7 @@
       <span class="dot">◆</span>
       <span>VIP Experience</span>
       <span class="dot">◆</span>
-      <span>Euphoria Kissimmee</span>
+      <span>Euphoria Orlando</span>
       <span class="dot">◆</span>
       <span>May 3rd 2026</span>
       <span class="dot">◆</span>
@@ -1065,7 +1079,7 @@
       <span class="dot">◆</span>
       <span>VIP Experience</span>
       <span class="dot">◆</span>
-      <span>Euphoria Kissimmee</span>
+      <span>Euphoria Orlando</span>
       <span class="dot">◆</span>
       <span>May 3rd 2026</span>
       <span class="dot">◆</span>
@@ -1110,8 +1124,8 @@
     </div>
     <div class="detail-cell reveal reveal-delay-1">
       <div class="detail-label">Venue</div>
-      <div class="detail-value"><em>Euphoria</em><br>Kissimmee</div>
-      <div class="detail-sub">Free parking available on-site</div>
+      <div class="detail-value"><em>Euphoria</em><br>Orlando</div>
+      <div class="detail-sub">2783 N Orange Blossom Trail, Kissimmee FL</div>
     </div>
     <div class="detail-cell reveal reveal-delay-2">
       <div class="detail-label">Race Broadcast</div>
@@ -1255,7 +1269,7 @@
             Is there parking at the venue?
             <span class="faq-q-icon">+</span>
           </button>
-          <div class="faq-a"><div class="faq-a-inner">Yes — complimentary parking is available for all attendees at Euphoria Kissimmee. VIP parking can be added as an upgrade when purchasing your ticket.</div></div>
+          <div class="faq-a"><div class="faq-a-inner">Yes — complimentary parking is available for all attendees at Euphoria Orlando. VIP parking can be added as an upgrade when purchasing your ticket.</div></div>
         </div>
 
         <div class="faq-item reveal reveal-delay-1">
@@ -1314,7 +1328,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="logo">Derby Daze Orlando</div>
-        <p>2nd Annual Kentucky Derby Day Party<br>Saturday, May 3rd 2026 · 4–9 PM<br>Euphoria Kissimmee, Orlando FL</p>
+        <p>2nd Annual Kentucky Derby Day Party<br>Saturday, May 3rd 2026 · 4–9 PM<br>2783 N Orange Blossom Trail, Kissimmee FL<br><em style="font-style:italic;opacity:0.5">Presented by Bluecheese Events &amp; Erica Lashae Events</em></p>
       </div>
 
       <div class="footer-center">
